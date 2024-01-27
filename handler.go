@@ -87,7 +87,8 @@ func postUrl(data BatchData, url string, retry int, log *zap.Logger) {
 
 		return
 	}
-	if resp.StatusCode >= 400 {
+	// any case response server failed to reach out or something hapapn
+	if resp.StatusCode >= 500 {
 		time.Sleep(2 * time.Second)
 		postUrl(data, url, retry+1, log)
 	}
